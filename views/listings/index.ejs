@@ -4,7 +4,7 @@
   #filters {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* filters left, toggle right */
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 1rem;
   }
@@ -35,12 +35,12 @@
     padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
-    white-space: nowrap; /* prevents label breaking into 2 lines */
+    white-space: nowrap;
+    gap: 0.5rem;
   }
 </style>
 
 <div id="filters">
-  <!-- left side filters -->
   <div class="filters-left d-none d-md-flex">
     <div class="filter">
       <div><i class="fa-solid fa-fire"></i></div>
@@ -88,7 +88,6 @@
     </div>
   </div>
 
-  <!-- right side toggle -->
   <div class="tax-toggle">
     <div class="form-check form-switch m-0">
       <input
@@ -97,15 +96,25 @@
         role="switch"
         id="switchCheckDefault"
       />
-      <label class="form-check-label ms-2" for="switchCheckDefault">
-        Display total After taxes
-      </label>
+      <label class="form-check-label" for="switchCheckDefault"
+        >Display total After taxes</label
+      >
     </div>
   </div>
 </div>
 
+<% if (locals.error && locals.error.length > 0) { %>
+<div class="alert alert-danger mt-3"><%= locals.error[0] %></div>
+<% } %> <% if (locals.success && locals.success.length > 0) { %>
+<div class="alert alert-success mt-3"><%= locals.success[0] %></div>
+<% } %>
+
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-  <% for (let listing of alllisting) { %>
+  <% if (alllisting.length === 0) { %>
+  <div class="col-12 text-center mt-5">
+    <h5>No listings available.</h5>
+  </div>
+  <% } %> <% for (let listing of alllisting) { %>
   <a href="/listings/<%= listing._id %>" class="listing-link">
     <div class="card col listing-card">
       <img

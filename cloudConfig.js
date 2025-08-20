@@ -1,6 +1,6 @@
 // cloudinary/index.js
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const { v2: cloudinary } = require("cloudinary");
+const { CloudinaryStorage } = require("@fluidjs/multer-cloudinary");
 
 // Configure Cloudinary
 cloudinary.config({

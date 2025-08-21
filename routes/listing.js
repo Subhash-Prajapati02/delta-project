@@ -20,23 +20,14 @@ router.get("/:id", wrapAsync(listingContoller.showListing));
 
 // CREATE ROUTE
 
-// router.post(
-//   "/",
-//   isLoggedIn,
-//   validateListing,
-//   wrapAsync(async (req, res, next) => {
-//     const newlisting = new Listing(req.body.listing);
-//     await newlisting.save();
-//     req.flash("success", "New Listing Created!");
-//     res.redirect("/listings");
-//   })
-// );
-
 router.post(
   "/",
   isLoggedIn,
-  validateListing,
+
   upload.single("listing[image]"),
+
+  validateListing,
+
   wrapAsync(listingContoller.createListing)
 );
 

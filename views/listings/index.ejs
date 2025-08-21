@@ -103,7 +103,9 @@
   </div>
 </div>
 
-<% if (locals.error && locals.error.length > 0) { %>
+<% if (typeof errorMsg !== 'undefined') { %>
+<div class="alert alert-danger mt-3"><%= errorMsg %></div>
+<% } else if (locals.error && locals.error.length > 0) { %>
 <div class="alert alert-danger mt-3"><%= locals.error[0] %></div>
 <% } %> <% if (locals.success && locals.success.length > 0) { %>
 <div class="alert alert-success mt-3"><%= locals.success[0] %></div>
@@ -112,7 +114,11 @@
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
   <% if (alllisting.length === 0) { %>
   <div class="col-12 text-center mt-5">
+    <% if (q) { %>
+    <h5>No listings found for "<%= q %>".</h5>
+    <% } else { %>
     <h5>No listings available.</h5>
+    <% } %>
   </div>
   <% } %> <% for (let listing of alllisting) { %>
   <a href="/listings/<%= listing._id %>" class="listing-link">

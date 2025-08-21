@@ -5,14 +5,13 @@ if (process.env.NODE_ENV != "production") {
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-// const Listing = require("./models/listing");
+
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-// const wrapAsync = require("./utils/wrapAsync");
+
 const ExpressError = require("./utils/ExpressError");
-// const { listingSchema, reviewSchema } = require("./Schema");
-// const Review = require("./models/review");
+
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
@@ -94,24 +93,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/demouser", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "student@gmail.com",
-//     username: "delta-student",
-//   });
-//   let registerUser = await User.register(fakeUser, "helloworld");
-//   res.send(registerUser);
-// });
-
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
-
-// INDEX ROUTE
-
-// REVIEWS - POST ROUTE
-
-// MIDLLEWARE
 
 app.all(/.*/, (req, res, next) => {
   next(new ExpressError(404, "page not found!"));
@@ -122,16 +106,3 @@ app.use((err, req, res, next) => {
   // res.status(statusCode).send(message);
   res.status(statusCode).render("error", { err });
 });
-
-// app.get("/testlisting", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "my new Villa",
-//     description: "by the beach",
-//     price: 1200,
-//     location: "calangute, Goa",
-//     country: "India",
-//   });
-//   await sampleListing.save();
-//   console.log("Sample Was Saved");
-//   res.send("successful testing");
-// });

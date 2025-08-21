@@ -18,6 +18,7 @@ module.exports.index = async (req, res) => {
   const alllisting = await Listing.find(query);
 
   if (q && alllisting.length === 0) {
+    // Flash message and redirect to /listings
     req.flash("error", `No listings found for "${q}"`);
     return res.redirect("/listings");
   }
